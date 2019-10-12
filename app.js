@@ -26,7 +26,9 @@ if (!(USER && PASSWORD && DATABASE)) return process.exit(1);
 
 mongoose
   .connect(
-    `mongodb+srv://${USER}:${PASSWORD}@restapi-jwt-kpxei.gcp.mongodb.net/${DATABASE}?retryWrites=true&w=majority`,
+    `mongodb+srv://${USER}:${PASSWORD}`
+    + '@restapi-jwt-kpxei.gcp.mongodb.net/'
+    + `${DATABASE}?retryWrites=true&w=majority`,
     {
       useCreateIndex: true,
       useNewUrlParser: true,
@@ -42,12 +44,12 @@ mongoose
 app.use('/', require('./routes/index'));
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   res.status(err.status || 500).json({ err });
 });
 

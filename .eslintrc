@@ -4,7 +4,7 @@
     "sourceType": "module",
     "ecmaVersion": 6
   },
-  "extends": ["airbnb", "prettier"],
+  "extends": ["prettier"],
   "env": {
     "browser": true,
     "node": true,

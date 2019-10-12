@@ -5,29 +5,31 @@ const User = require('../models/User.model');
 const UserService = require('../services/userService');
 
 router.get('/login', (req, res, next) => {
-  console.log(req.body);
-  // passport.authenticate('local', { session: false }, (error, user, info) => {
-  //   if (error || !user) {
-  //     return res.status(400).json({
-  //       message: info ? info.message : 'Something is not right.',
-  //       user
-  //     })
-  //   }
+  passport.authenticate('local', { session: false }, (error, user, info) => {
+    if (error || !user) {
+      return res.status(400).json({
+        message: info ? info.message : 'Something is not right.',
+        user
+      });
+    }
 
-  //   req.login(user, { session: false }, err => {
-  //     if (err) {
-  //       return res.status(400).json(err);
-  //     }
+    req.login(user, { session: false }, err => {
+      if (err) {
+        return res.status(400).json(err);
+      }
 
-  //     // generate jwt token
-  //     const token = UserService.generateToken(user);
+      // generate jwt token
+      const token = UserService.generateToken(user);
 
-  //     return res.status(200).json({
-  //       user,
-  //       token
-  //     })
-  //   })
-  // })(req, res);
+      return res.status(200).json({
+        user: {
+          _id: user._id,
+          email: user.email
+        },
+        token
+      });
+    });
+  })(req, res);
 });
 
 router.post('/register', async (req, res, next) => {
@@ -49,7 +51,10 @@ router.post('/register', async (req, res, next) => {
       });
     }
 
-    const user = new User({ email, name, password });
+    // hashpassword
+    const hashPw = await UserService.hashPassword(password);
+    const user = new User({ email, name, password: hashPw });
+
     const retUser = await user.save();
 
     if (!retUser) {

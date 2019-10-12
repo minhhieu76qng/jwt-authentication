@@ -8,7 +8,7 @@ const ls = new LocalStrategy(
     usernameField: 'email',
     passwordField: 'password'
   },
-  function (email, password, done) {
+  function(email, password, done) {
     return User.findOne({ email })
       .then(async user => {
         if (!user) {
@@ -17,6 +17,7 @@ const ls = new LocalStrategy(
 
         //compare password
         const same = await UserService.comparePassword(password, user.password);
+
         if (!same) {
           return done(null, false, { message: 'Incorrect email or password.' });
         }
