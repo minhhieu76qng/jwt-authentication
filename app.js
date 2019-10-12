@@ -26,9 +26,9 @@ if (!(USER && PASSWORD && DATABASE)) return process.exit(1);
 
 mongoose
   .connect(
-    `mongodb+srv://${USER}:${PASSWORD}`
-    + '@restapi-jwt-kpxei.gcp.mongodb.net/'
-    + `${DATABASE}?retryWrites=true&w=majority`,
+    `mongodb+srv://${USER}:${PASSWORD}` +
+    '@restapi-jwt-kpxei.gcp.mongodb.net/' +
+    `${DATABASE}?retryWrites=true&w=majority`,
     {
       useCreateIndex: true,
       useNewUrlParser: true,
@@ -40,7 +40,6 @@ mongoose
   });
 
 // use passport
-
 app.use('/', require('./routes/index'));
 
 // catch 404 and forward to error handler

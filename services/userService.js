@@ -13,7 +13,7 @@ class UserService {
   static generateToken({ _id }) {
     const { SECRET_KEY } = process.env;
 
-    return jwt.sign({ _id }, SECRET_KEY);
+    return jwt.sign({ _id }, SECRET_KEY, { expiresIn: 100 });
   }
 }
 
