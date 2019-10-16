@@ -7,7 +7,7 @@ const auth = (req, res, next) => {
     if (!user) {
       return res.status(401).json({
         error: {
-          message: 'Not token or token has expired.'
+          message: 'No token or token has expired.'
         }
       });
     }

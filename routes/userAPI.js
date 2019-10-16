@@ -4,7 +4,7 @@ const passport = require('passport');
 const User = require('../models/User.model');
 const UserService = require('../services/userService');
 
-router.get('/login', (req, res, next) => {
+router.post('/login', (req, res, next) => {
   passport.authenticate('local', { session: false }, (error, user, info) => {
     if (error || !user) {
       return res.status(400).json({

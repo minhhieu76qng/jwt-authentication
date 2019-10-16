@@ -12,7 +12,7 @@ const ls = new LocalStrategy(
     usernameField: 'email',
     passwordField: 'password'
   },
-  function(email, password, done) {
+  function (email, password, done) {
     return User.findOne({ email })
       .then(async user => {
         if (!user) {
@@ -37,7 +37,7 @@ const jwts = new JWTStrategy(
     jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
     secretOrKey: SECRET_KEY
   },
-  async function(jwtPayload, done) {
+  async function (jwtPayload, done) {
     try {
       const user = await User.findOne({ _id: jwtPayload._id });
 
