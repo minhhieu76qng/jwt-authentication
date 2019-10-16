@@ -3,6 +3,8 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const logger = require('morgan');
+const cors = require('cors');
+
 require('dotenv').config();
 
 require('./config/passport');
@@ -13,6 +15,7 @@ const app = express();
 app.set('views', '/views');
 app.set('view engine', 'hbs');
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
